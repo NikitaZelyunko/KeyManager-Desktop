@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": ["es2020", "dom"],
+    "types": ["node"]
+  },
+  "files": ["app/main.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

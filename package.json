@@ -1,13 +1,28 @@
 {
   "name": "key-manager",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+  "description": "App for password manage",
+  "author": {
+    "name": "NikitaZelyunko"
   },
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "ng": "ng",
+    "start": "npm-run-all -p electron:serve ng:serve",
+    "build": "npm run electron:serve-tsc && ng build --base-href ./",
+    "test": "ng test --watch=false",
+    "test:watch": "ng test",
+    "build:dev": "npm run build -- -c dev",
+    "build:prod": "npm run build -- -c production",
+    "ng:serve": "ng serve -c web",
+    "electron:serve-tsc": "tsc -p tsconfig.serve.json",
+    "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
+    "electron:local": "npm run build:prod && npx electron .",
+    "electron:build": "npm run build:prod && electron-builder build --publish=never",
+    "lint": "ng lint",
+    "prepare": "husky install"
+  },
+  "main": "app/main.js",
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.0.0",
@@ -24,16 +39,43 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.0.3",
+    "@angular-eslint/builder": "13.0.1",
+    "@angular-eslint/eslint-plugin": "13.0.1",
+    "@angular-eslint/eslint-plugin-template": "13.0.1",
+    "@angular-eslint/schematics": "13.0.1",
+    "@angular-eslint/template-parser": "13.0.1",
     "@angular/cli": "~13.0.3",
     "@angular/compiler-cli": "~13.0.0",
+    "@types/electron": "^1.6.10",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "5.3.0",
+    "@typescript-eslint/parser": "5.3.0",
+    "electron": "^16.0.1",
+    "electron-builder": "^22.14.5",
+    "electron-reload": "^2.0.0-alpha.1",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.4.3"
+    "lint-staged": "^12.0.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.4.1",
+    "typescript": "~4.4.3",
+    "wait-on": "^6.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --relative"
+    }
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }

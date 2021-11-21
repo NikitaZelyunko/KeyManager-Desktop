@@ -1,0 +1,11 @@
+{
+  "name": "key-manager-electron",
+  "description": "App for password manage",
+  "author": {
+    "name": "NikitaZelyunko"
+  },
+  "version": "0.0.0",
+  "main": "main.js",
+  "private": true,
+  "dependencies": {}
+}

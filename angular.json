@@ -20,19 +20,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/KeyManager",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.less"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.less"],
             "scripts": []
           },
           "configurations": {
@@ -64,6 +59,22 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "web": {
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.web.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -76,6 +87,9 @@
             },
             "development": {
               "browserTarget": "KeyManager:build:development"
+            },
+            "web": {
+              "browserTarget": "KeyManager:build:web"
             }
           },
           "defaultConfiguration": "development"
@@ -94,18 +108,22 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "less",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.less"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.less"],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
     }
   },
-  "defaultProject": "KeyManager"
+  "defaultProject": "KeyManager",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

@@ -2,8 +2,10 @@
 
 # compiled output
 /dist
+/app/dist
 /tmp
 /out-tsc
+/release
 # Only exists if Bazel was run
 /bazel-out
 
@@ -23,11 +25,6 @@ chrome-profiler-events*.json
 *.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 .history/*
 
 # misc

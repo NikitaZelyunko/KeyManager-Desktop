@@ -1,0 +1,4 @@
+# Ignore artifacts:
+.angular
+node_modules
+dist
