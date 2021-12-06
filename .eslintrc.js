@@ -5,21 +5,6 @@ module.exports = {
     'dist/**/*',
     'release/**/*',
   ],
-  extends: ['prettier', 'plugin:prettier/recommended'],
-  plugins: ['@typescript-eslint', '@angular-eslint'],
-  rules: {
-    'prettier/prettier': 'error',
-    'arrow-body-style': 'off',
-    'prefer-arrow-callback': 'off',
-    'max-len': [
-      'error',
-      {
-        code: 100,
-        ignoreComments: true,
-        ignoreUrls: true,
-      },
-    ],
-  },
   overrides: [
     {
       files: ['*.ts'],
@@ -27,11 +12,25 @@ module.exports = {
         project: ['tsconfig.json'],
         createDefaultProgram: true,
       },
+      plugins: ['unused-imports'],
       extends: [
+        'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@angular-eslint/recommended',
         'plugin:@angular-eslint/template/process-inline-templates',
+        'plugin:prettier/recommended',
       ],
       rules: {
+        'unused-imports/no-unused-imports': 'error',
+        'arrow-body-style': 'off',
+        'prefer-arrow-callback': 'off',
+        'max-len': [
+          'error',
+          {
+            code: 100,
+            ignoreComments: true,
+            ignoreUrls: true,
+          },
+        ],
         'no-console': [
           'error',
           {
@@ -60,7 +59,24 @@ module.exports = {
     {
       files: ['*.html'],
       extends: ['plugin:@angular-eslint/template/recommended'],
-      rules: {},
+      rules: {
+        'max-len': [
+          'error',
+          {
+            code: 100,
+            ignoreComments: true,
+            ignoreUrls: true,
+          },
+        ],
+      },
+    },
+    {
+      files: ['*.html'],
+      excludedFiles: ['*inline-template-*.component.html'],
+      extends: ['plugin:prettier/recommended'],
+      rules: {
+        'prettier/prettier': ['error', { parser: 'angular' }],
+      },
     },
   ],
 };

@@ -1,15 +1,16 @@
 {
+  "prettier.configPath": ".prettierrc.json",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
   "[javascript]": {
     "editor.formatOnSave": true
   },
   "[html]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true
   },
   "[json]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true
   },
-  "eslint.alwaysShowStatus": true,
-  "prettier.configPath": ".prettierrc.json"
+  "eslint.alwaysShowStatus": true
 }
