@@ -7,6 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "changeDetection": "OnPush",
           "style": "less"
         },
         "@schematics/angular:application": {
@@ -27,7 +28,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.less"],
+            "styles": ["src/styles.less", "src/reset.less"],
             "scripts": []
           },
           "configurations": {
@@ -109,7 +110,7 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "less",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.less"],
+            "styles": ["src/styles.less", "src/reset.less"],
             "scripts": []
           }
         },
