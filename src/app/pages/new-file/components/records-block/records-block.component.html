@@ -1,0 +1,10 @@
+<h3>Записи для шифрования</h3>
+<div class="records-list">
+  <!-- Переделать на material -->
+  <app-record-item
+    *ngFor="let record of records; index as recordIndex; trackBy: recordIdentify"
+    [record]="record.value"
+    (update)="recordUpdate(recordIndex, $event)"
+    (delete)="recordDelete(recordIndex)"
+  ></app-record-item>
+</div>

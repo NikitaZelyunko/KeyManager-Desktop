@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainComponent } from './main.component';
+import { RecordItemDisplayComponent } from './record-item-display.component';
 
-describe('MainComponent', () => {
-  let component: MainComponent;
-  let fixture: ComponentFixture<MainComponent>;
+describe('RecordItemDisplayComponent', () => {
+  let component: RecordItemDisplayComponent;
+  let fixture: ComponentFixture<RecordItemDisplayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MainComponent],
+      declarations: [RecordItemDisplayComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MainComponent);
+    fixture = TestBed.createComponent(RecordItemDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

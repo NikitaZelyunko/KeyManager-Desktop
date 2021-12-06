@@ -5,11 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
 })
-export class AppComponent {
-  title = 'KeyManager';
-
-  method() {
-    console.log('hello');
-    debugger;
-  }
-}
+export class AppComponent {}

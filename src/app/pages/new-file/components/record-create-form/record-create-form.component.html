@@ -1,0 +1,12 @@
+<form [formGroup]="form" class="form">
+  <div class="login">
+    <span>Login</span>
+    <input formControlName="login" />
+  </div>
+  <div class="password">
+    <span>Password</span>
+    <input formControlName="password" />
+  </div>
+</form>
+<button (click)="submit()">Save</button>
+<ng-content></ng-content>

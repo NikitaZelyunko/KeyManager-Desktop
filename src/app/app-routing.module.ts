@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'new-file', pathMatch: 'prefix' },
   {
-    path: 'main',
-    loadChildren: () => import('./pages/main/main.module').then((m) => m.MainModule),
+    path: 'new-file',
+    loadChildren: () => import('./pages/new-file/new-file.module').then((m) => m.NewFileModule),
   },
-  { path: '', redirectTo: 'main', pathMatch: 'prefix' },
 ];
 
 @NgModule({

@@ -1,0 +1,11 @@
+<app-record-item-display
+  *ngIf="isDisplay; else editForm"
+  [record]="record"
+  (edit)="onEdit()"
+  (delete)="onDelete()"
+></app-record-item-display>
+<ng-template #editForm>
+  <app-record-create-form [record]="record" (save)="onSave($event)">
+    <button *ngIf="isEdit" (click)="onEditUndo()">Back</button>
+  </app-record-create-form>
+</ng-template>
