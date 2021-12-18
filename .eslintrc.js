@@ -78,5 +78,14 @@ module.exports = {
         'prettier/prettier': ['error', { parser: 'angular' }],
       },
     },
+    {
+      files: ['*.js'],
+      parserOptions: {
+        ecmaVersion: 2020,
+      },
+      // env: {
+      //   es6: true,
+      // },
+    },
   ],
 };

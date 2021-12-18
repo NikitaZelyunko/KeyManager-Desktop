@@ -10,6 +10,14 @@ import { RecordItemComponent } from './components/record-item/record-item.compon
 import { RecordsBlockComponent } from './components/records-block/records-block.component';
 // eslint-disable-next-line max-len
 import { RecordItemDisplayComponent } from './components/record-item-display/record-item-display.component';
+import { RecordsManagerService } from './services/records-manager.service';
+// eslint-disable-next-line max-len
+import { EncryptionParametersBlockComponent } from './components/encryption-parameters-block/encryption-parameters-block.component';
+// eslint-disable-next-line max-len
+import { CreateEncriptedFileBlockComponent } from './components/create-encripted-file-block/create-encripted-file-block.component';
+// eslint-disable-next-line max-len
+import { CreateEncriptedFileOutputComponent } from './components/create-encripted-file-output/create-encripted-file-output.component';
+import { EncryptionFileManagerService } from './services/encryption-file-manager.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +26,11 @@ import { RecordItemDisplayComponent } from './components/record-item-display/rec
     RecordItemComponent,
     RecordsBlockComponent,
     RecordItemDisplayComponent,
+    EncryptionParametersBlockComponent,
+    CreateEncriptedFileBlockComponent,
+    CreateEncriptedFileOutputComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, NewFileRoutingModule],
+  providers: [RecordsManagerService, EncryptionFileManagerService],
 })
 export class NewFileModule {}

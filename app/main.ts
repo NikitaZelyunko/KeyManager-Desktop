@@ -1,7 +1,12 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
-import * as fs from 'fs';
 import * as url from 'url';
+import {
+  FILE_SAVE_FAILED_EVENT_NAME,
+  FILE_SAVE_REQUEST_EVENT_NAME,
+  FILE_SAVE_SUCCESS_EVENT_NAME,
+} from './events/file-saving';
+import FileManagerProvider from './file-manager/file-manager';
 
 let win: BrowserWindow | null = null;
 const args = process.argv.slice(1),
@@ -17,6 +22,8 @@ function createWindow(): BrowserWindow {
     y: 0,
     width: size.width,
     height: size.height,
+    // TODO изучить вопросы безопасности
+    // https://www.electronjs.org/docs/latest/tutorial/security
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: serve ? true : false,
@@ -49,6 +56,20 @@ function createWindow(): BrowserWindow {
     // when you should delete the corresponding element.
     win = null;
   });
+
+  ipcMain.on(
+    FILE_SAVE_REQUEST_EVENT_NAME,
+    (event, message: string | ArrayBuffer, dialogTitle?: string) => {
+      FileManagerProvider.createFile(message, dialogTitle).subscribe(
+        (result) => {
+          event.reply(FILE_SAVE_SUCCESS_EVENT_NAME, result);
+        },
+        (error) => {
+          event.reply(FILE_SAVE_FAILED_EVENT_NAME);
+        }
+      );
+    }
+  );
 
   return win;
 }

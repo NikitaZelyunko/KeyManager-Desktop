@@ -2,7 +2,7 @@
 <div class="records-list">
   <!-- Переделать на material -->
   <app-record-item
-    *ngFor="let record of records; index as recordIndex; trackBy: recordIdentify"
+    *ngFor="let record of records$ | async; index as recordIndex; trackBy: recordIdentify"
     [record]="record.value"
     (update)="recordUpdate(recordIndex, $event)"
     (delete)="recordDelete(recordIndex)"

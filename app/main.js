@@ -3,6 +3,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const electron_1 = require('electron');
 const path = require('path');
 const url = require('url');
+const file_saving_1 = require('./events/file-saving');
+const file_manager_1 = require('./file-manager/file-manager');
 let win = null;
 const args = process.argv.slice(1),
   serve = args.some((val) => val === '--serve');
@@ -15,6 +17,8 @@ function createWindow() {
     y: 0,
     width: size.width,
     height: size.height,
+    // TODO изучить вопросы безопасности
+    // https://www.electronjs.org/docs/latest/tutorial/security
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: serve ? true : false,
@@ -45,6 +49,19 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
+  electron_1.ipcMain.on(
+    file_saving_1.FILE_SAVE_REQUEST_EVENT_NAME,
+    (event, message, dialogTitle) => {
+      file_manager_1.default.createFile(message, dialogTitle).subscribe(
+        (result) => {
+          event.reply(file_saving_1.FILE_SAVE_SUCCESS_EVENT_NAME, result);
+        },
+        (error) => {
+          event.reply(file_saving_1.FILE_SAVE_FAILED_EVENT_NAME);
+        }
+      );
+    }
+  );
   return win;
 }
 try {
