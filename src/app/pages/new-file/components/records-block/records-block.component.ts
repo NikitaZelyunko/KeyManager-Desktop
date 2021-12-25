@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { RecordsManagerService } from '../../services/records-manager.service';
 import { NewRecord } from '../../types/new-record-type';
-import { RecordListItem } from '../../types/record-list-item.type';
+import { recordIdentify, RecordListItem } from '../../types/record-list-item.type';
 @Component({
   selector: 'app-records-block',
   templateUrl: './records-block.component.html',
@@ -13,8 +13,8 @@ export class RecordsBlockComponent implements OnInit {
 
   constructor(private recordsService: RecordsManagerService) {}
 
-  recordIdentify(index: number, record: RecordListItem) {
-    return record.id;
+  recordTrackBy(index: number, record: RecordListItem) {
+    return recordIdentify(record);
   }
 
   // TODO написать декоратор для этого

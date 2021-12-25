@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateEncriptedFileBlockComponent } from './create-encripted-file-block.component';
+import { CreateEncryptedFileBlockComponent } from './create-encrypted-file-block.component';
 
 describe('CreateEncriptedFileBlockComponent', () => {
-  let component: CreateEncriptedFileBlockComponent;
-  let fixture: ComponentFixture<CreateEncriptedFileBlockComponent>;
+  let component: CreateEncryptedFileBlockComponent;
+  let fixture: ComponentFixture<CreateEncryptedFileBlockComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CreateEncriptedFileBlockComponent],
+      declarations: [CreateEncryptedFileBlockComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateEncriptedFileBlockComponent);
+    fixture = TestBed.createComponent(CreateEncryptedFileBlockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

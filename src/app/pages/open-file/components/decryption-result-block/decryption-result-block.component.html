@@ -1,0 +1,13 @@
+<h3>Расшифрованный результат</h3>
+<div *ngFor="let record of records$ | async; trackBy: recordTrackBy" class="records">
+  <div class="content">
+    <div class="field">
+      <span>Login: </span>
+      <span>{{ record.value.login }}</span>
+    </div>
+    <div class="field">
+      <span>Password: </span>
+      <span>{{ record.value.password }}</span>
+    </div>
+  </div>
+</div>

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateEncriptedFileOutputComponent } from './create-encripted-file-output.component';
+import { CreateEncryptedFileOutputComponent } from './create-encrypted-file-output.component';
 
 describe('CreateEncriptedFileOutputComponent', () => {
-  let component: CreateEncriptedFileOutputComponent;
-  let fixture: ComponentFixture<CreateEncriptedFileOutputComponent>;
+  let component: CreateEncryptedFileOutputComponent;
+  let fixture: ComponentFixture<CreateEncryptedFileOutputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CreateEncriptedFileOutputComponent],
+      declarations: [CreateEncryptedFileOutputComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateEncriptedFileOutputComponent);
+    fixture = TestBed.createComponent(CreateEncryptedFileOutputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

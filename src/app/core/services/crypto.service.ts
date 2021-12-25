@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import { catchError, EMPTY, from, map, Observable } from 'rxjs';
 
 const ALGORITHM_NAME = 'RSA-OAEP';
 
@@ -25,19 +25,45 @@ export class CryptoService {
     return encoder.encode(message);
   }
 
+  private decodeMessage(message: BufferSource) {
+    const decoder = new TextDecoder();
+    return decoder.decode(message);
+  }
+
   encrypt(key: CryptoKey, message: string): Observable<ArrayBuffer> {
     return from(
       window.crypto.subtle.encrypt({ name: ALGORITHM_NAME }, key, this.encodeMessage(message))
     );
   }
 
-  decrypt(key: CryptoKey, message: string) {
-    return from(
-      window.crypto.subtle.decrypt({ name: ALGORITHM_NAME }, key, this.encodeMessage(message))
+  decrypt(key: CryptoKey, message: BufferSource) {
+    return from(window.crypto.subtle.decrypt({ name: ALGORITHM_NAME }, key, message)).pipe(
+      map((result: BufferSource) => this.decodeMessage(result))
     );
   }
 
   exportKey(key: CryptoKey) {
     return from(window.crypto.subtle.exportKey('jwk', key));
+  }
+
+  importPrivateKey(keyData: ArrayBuffer) {
+    const jsonKey: JsonWebKey = JSON.parse(this.decodeMessage(keyData));
+    return from(
+      window.crypto.subtle.importKey(
+        'jwk',
+        jsonKey,
+        {
+          name: ALGORITHM_NAME,
+          hash: 'SHA-512',
+        },
+        false,
+        ['decrypt']
+      )
+    ).pipe(
+      catchError((err) => {
+        console.error(err);
+        return EMPTY;
+      })
+    );
   }
 }
