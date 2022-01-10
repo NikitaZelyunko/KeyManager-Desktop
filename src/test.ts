@@ -23,5 +23,6 @@ getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDyn
 
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);
+// const context = require.context('./', true, /encryption-file-manager\.service\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);

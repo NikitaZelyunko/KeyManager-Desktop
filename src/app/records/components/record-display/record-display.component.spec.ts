@@ -5,6 +5,7 @@ import { RecordDisplayComponent } from './record-display.component';
 describe('RecordDisplayComponent', () => {
   let component: RecordDisplayComponent;
   let fixture: ComponentFixture<RecordDisplayComponent>;
+  const defaultRecord = { title: '', description: '', login: '', password: '' };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -15,6 +16,7 @@ describe('RecordDisplayComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RecordDisplayComponent);
     component = fixture.componentInstance;
+    component.record = defaultRecord;
     fixture.detectChanges();
   });
 

@@ -1,6 +1,10 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateEncryptedFileBlockComponent } from './create-encrypted-file-block.component';
+
+@Component({ selector: 'app-create-encrypted-file-output', template: '' })
+class CreateEncryptedFileOutputStubComponent {}
 
 describe('CreateEncriptedFileBlockComponent', () => {
   let component: CreateEncryptedFileBlockComponent;
@@ -8,7 +12,7 @@ describe('CreateEncriptedFileBlockComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CreateEncryptedFileBlockComponent],
+      declarations: [CreateEncryptedFileBlockComponent, CreateEncryptedFileOutputStubComponent],
     }).compileComponents();
   });
 
