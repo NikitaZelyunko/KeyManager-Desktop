@@ -13,7 +13,7 @@ export class EncryptionFileManagerService {
   ) {}
 
   createFile() {
-    return forkJoin([this.rm.getLatestRecords(), this.crypto.generateKey()]).pipe(
+    return forkJoin([this.rm.getFilledRecords(), this.crypto.generateKey()]).pipe(
       switchMap(([records, keys]) => {
         if (keys.privateKey && keys.publicKey) {
           return forkJoin([this.crypto.encrypt(keys.publicKey, JSON.stringify(records)), of(keys)]);

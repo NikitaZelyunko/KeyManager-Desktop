@@ -8,8 +8,6 @@ import { RecordCreateFormComponent } from './components/record-create-form/recor
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecordItemComponent } from './components/record-item/record-item.component';
 import { RecordsBlockComponent } from './components/records-block/records-block.component';
-// eslint-disable-next-line max-len
-import { RecordItemDisplayComponent } from './components/record-item-display/record-item-display.component';
 import { RecordsManagerService } from './services/records-manager.service';
 // eslint-disable-next-line max-len
 import { EncryptionParametersBlockComponent } from './components/encryption-parameters-block/encryption-parameters-block.component';
@@ -18,6 +16,7 @@ import { CreateEncryptedFileBlockComponent } from './components/create-encrypted
 // eslint-disable-next-line max-len
 import { CreateEncryptedFileOutputComponent } from './components/create-encrypted-file-output/create-encrypted-file-output.component';
 import { EncryptionFileManagerService } from './services/encryption-file-manager.service';
+import { RecordsModule } from 'src/app/records/records.module';
 
 @NgModule({
   declarations: [
@@ -25,12 +24,11 @@ import { EncryptionFileManagerService } from './services/encryption-file-manager
     RecordCreateFormComponent,
     RecordItemComponent,
     RecordsBlockComponent,
-    RecordItemDisplayComponent,
     EncryptionParametersBlockComponent,
     CreateEncryptedFileBlockComponent,
     CreateEncryptedFileOutputComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, NewFileRoutingModule],
+  imports: [CommonModule, ReactiveFormsModule, NewFileRoutingModule, RecordsModule],
   providers: [RecordsManagerService, EncryptionFileManagerService],
 })
 export class NewFileModule {}

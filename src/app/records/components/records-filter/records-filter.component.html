@@ -1,0 +1,4 @@
+<form [formGroup]="form">
+  <input formControlName="searchString" (keydown.enter)="submit()" />
+  <button type="button" (click)="submit()">Search</button>
+</form>

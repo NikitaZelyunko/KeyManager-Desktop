@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NewRecord } from '../../types/new-record-type';
+import { NewRecord } from '../../../../records/types/new-record-type';
 
 @Component({
   selector: 'app-record-create-form',
@@ -17,6 +17,8 @@ export class RecordCreateFormComponent {
   @Output() save = new EventEmitter<NewRecord>();
 
   form: FormGroup = this.fb.group({
+    title: this.fb.control('', Validators.required),
+    description: this.fb.control(''),
     login: this.fb.control('', Validators.required),
     password: this.fb.control('', Validators.required),
   } as Record<keyof NewRecord, unknown>);

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { NewRecord } from '../../types/new-record-type';
+import { NewRecord } from '../../../../records/types/new-record-type';
 
 type DisplayType = 'edit' | 'display' | 'create';
 

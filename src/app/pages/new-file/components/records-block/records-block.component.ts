@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { RecordsManagerService } from '../../services/records-manager.service';
-import { NewRecord } from '../../types/new-record-type';
-import { recordIdentify, RecordListItem } from '../../types/record-list-item.type';
+import { NewRecord } from '../../../../records/types/new-record-type';
+import { recordIdentify, RecordListItem } from '../../../../records/types/record-list-item.type';
 @Component({
   selector: 'app-records-block',
   templateUrl: './records-block.component.html',

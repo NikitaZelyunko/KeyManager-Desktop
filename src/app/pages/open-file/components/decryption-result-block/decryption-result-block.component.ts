@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { recordIdentify, RecordListItem } from 'src/app/pages/new-file/types/record-list-item.type';
+import { FilterResultType } from 'src/app/records/types/filter-result-type';
+import { recordIdentify, RecordListItem } from 'src/app/records/types/record-list-item.type';
 import { DecryptionResultManagerService } from '../../services/decryption-result-manager.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { DecryptionResultManagerService } from '../../services/decryption-result
 })
 export class DecryptionResultBlockComponent {
   records$ = this.drm.getDecryptedResult();
+  filterResult: FilterResultType | null = null;
   constructor(private drm: DecryptionResultManagerService) {}
 
   recordTrackBy(index: number, record: RecordListItem) {

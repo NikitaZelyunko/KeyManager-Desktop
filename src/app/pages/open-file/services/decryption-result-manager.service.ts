@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, forkJoin, map, of, switchMap } from 'rxjs';
 import { CryptoService } from 'src/app/core/services/crypto.service';
-import { RecordListItem } from '../../new-file/types/record-list-item.type';
+import { RecordListItem } from '../../../records/types/record-list-item.type';
 
 type Files = Record<'keyData' | 'encryptedData', ArrayBuffer>;
 

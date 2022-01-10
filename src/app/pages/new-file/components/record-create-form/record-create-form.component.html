@@ -1,9 +1,17 @@
 <form [formGroup]="form" class="form">
-  <div class="login">
+  <div class="form-field">
+    <span>Title</span>
+    <input formControlName="title" />
+  </div>
+  <div class="form-field">
+    <span>Description</span>
+    <input formControlName="description" />
+  </div>
+  <div class="form-field">
     <span>Login</span>
     <input formControlName="login" />
   </div>
-  <div class="password">
+  <div class="form-field">
     <span>Password</span>
     <input formControlName="password" />
   </div>

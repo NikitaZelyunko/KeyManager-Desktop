@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, EMPTY, filter, first, switchMap, tap } from 'rxjs';
-import { NewRecord } from '../types/new-record-type';
-import { RecordListItem } from '../types/record-list-item.type';
+import { BehaviorSubject, EMPTY, filter, first, map, switchMap, tap } from 'rxjs';
+import { NewRecord } from '../../../records/types/new-record-type';
+import { RecordListItem } from '../../../records/types/record-list-item.type';
 
 @Injectable()
 export class RecordsManagerService {
@@ -27,12 +27,16 @@ export class RecordsManagerService {
     return this.records$.pipe(filter(Boolean));
   }
 
+  getFilledRecords() {
+    return this.getLatestRecords().pipe(map((records) => records.slice(1)));
+  }
+
   getLatestRecords() {
     return this.getRecords().pipe(first());
   }
 
   private createEmptyRecord(): NewRecord {
-    return { login: '', password: '' };
+    return { title: '', description: '', login: '', password: '' };
   }
 
   private createEmptyRecordListItem() {
