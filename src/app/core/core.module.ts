@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { FileCreatorService } from './services/file-creator.service';
 import { CryptoService } from './services/crypto.service';
 import { ElectronService } from './services/electron.service';
+import { ModalsModule } from '../modals/modals.module';
 
 @NgModule({
   declarations: [HeaderComponent],
-  imports: [CommonModule, RouterModule],
-  exports: [HeaderComponent],
+  imports: [CommonModule, RouterModule, ModalsModule],
+  exports: [HeaderComponent, ModalsModule],
   providers: [FileCreatorService, CryptoService, ElectronService],
 })
 export class CoreModule {

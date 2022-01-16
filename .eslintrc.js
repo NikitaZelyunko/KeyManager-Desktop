@@ -29,6 +29,7 @@ module.exports = {
             code: 100,
             ignoreComments: true,
             ignoreUrls: true,
+            ignorePattern: '^import .*',
           },
         ],
         'no-console': [

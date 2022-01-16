@@ -1,0 +1,4 @@
+<p>files-modal works!</p>
+<div *ngFor="let file of files">
+  <a download [href]="file.href">{{ file.label }}</a>
+</div>

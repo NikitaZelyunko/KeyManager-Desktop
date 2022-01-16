@@ -1,0 +1,5 @@
+<p>main-open-file works!</p>
+<app-files-for-encrypt-form (filesUpload)="onFilesUpload($event)"></app-files-for-encrypt-form>
+<div *ngIf="records$ | async as records">
+  <app-readonly-records-list [records]="records"></app-readonly-records-list>
+</div>

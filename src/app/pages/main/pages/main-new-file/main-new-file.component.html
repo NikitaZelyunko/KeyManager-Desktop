@@ -1,0 +1,12 @@
+<h3>Записи для шифрования</h3>
+<ng-container *ngIf="records$ | async as records">
+  <app-editable-records-list [records]="records"></app-editable-records-list>
+  <div *ngIf="records.length">
+    <button (click)="onFileCreate()">Create</button>
+    <button (click)="onClear()">Сlear</button>
+  </div>
+  <app-files-modal
+    *ngIf="createdFiles$ | async as createdFiles"
+    [files]="createdFiles"
+  ></app-files-modal>
+</ng-container>

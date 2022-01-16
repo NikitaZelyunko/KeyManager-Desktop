@@ -1,0 +1,6 @@
+<app-records-filter (search)="filterResult = $event"></app-records-filter>
+<app-record-display
+  *ngFor="let record of records | recordsFilter: filterResult; trackBy: recordTrackBy"
+  [record]="record.value"
+>
+</app-record-display>

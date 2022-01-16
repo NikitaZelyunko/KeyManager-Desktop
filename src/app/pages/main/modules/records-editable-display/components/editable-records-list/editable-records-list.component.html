@@ -1,0 +1,15 @@
+<div class="records-list">
+  <!-- Переделать на material -->
+  <app-record-create-form [record]="newRecord" (save)="onNewSave($event)"></app-record-create-form>
+  <app-records-filter (search)="filterResult = $event" *ngIf="records.length"></app-records-filter>
+  <app-record-item
+    *ngFor="
+      let record of records | recordsFilter: filterResult;
+      index as recordIndex;
+      trackBy: recordTrackBy
+    "
+    [record]="record.value"
+    (update)="recordUpdate(recordIndex, $event)"
+    (delete)="recordDelete(recordIndex)"
+  ></app-record-item>
+</div>

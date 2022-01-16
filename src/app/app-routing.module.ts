@@ -4,14 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 // TODO названия маршрутов(path) надо выносить в отдельный файл
 
 const routes: Routes = [
-  { path: '', redirectTo: 'new-file', pathMatch: 'prefix' },
+  { path: '', redirectTo: 'main', pathMatch: 'prefix' },
   {
-    path: 'new-file',
-    loadChildren: () => import('./pages/new-file/new-file.module').then((m) => m.NewFileModule),
-  },
-  {
-    path: 'open-file',
-    loadChildren: () => import('./pages/open-file/open-file.module').then((m) => m.OpenFileModule),
+    path: 'main',
+    loadChildren: () => import('./pages/main/main.module').then((m) => m.MainModule),
   },
 ];
 
