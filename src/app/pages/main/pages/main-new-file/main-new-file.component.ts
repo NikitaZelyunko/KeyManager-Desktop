@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { RecordsManagerService } from 'src/app/pages/main/services/records-manager.service';
 import { FileModalData } from 'src/app/shared/types/file-modal-data';
 import { EncryptionFileManagerService } from '../../services/encryption-file-manager.service';
@@ -11,9 +11,8 @@ import { EncryptionFileManagerService } from '../../services/encryption-file-man
   styleUrls: ['./main-new-file.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainNewFileComponent implements OnInit, OnDestroy {
-  private unsubscriber$ = new Subject<void>();
-  records$ = this.recordsService.getRecords().pipe(takeUntil(this.unsubscriber$));
+export class MainNewFileComponent implements OnInit {
+  records$ = this.recordsService.getRecords();
   createdFiles$ = new BehaviorSubject<FileModalData[] | null>(null);
   constructor(
     private recordsService: RecordsManagerService,
@@ -54,14 +53,10 @@ export class MainNewFileComponent implements OnInit, OnDestroy {
   // TODO написать декоратор для прекращения всех активных observables
   onClear() {
     this.createdFiles$.next(null);
-    this.recordsService.reset();
+    this.recordsService.reInit();
   }
 
   ngOnInit() {
-    this.recordsService.init();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscriber$.complete();
+    this.recordsService.reInit();
   }
 }

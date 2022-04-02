@@ -1,1 +1,13 @@
-<p>main-edit-file works!</p>
+<app-files-for-encrypt-form (filesUpload)="onFilesUpload($event)"></app-files-for-encrypt-form>
+<div *ngIf="records$ | async as records">
+  <app-editable-records-list [records]="records"></app-editable-records-list>
+  <app-radio-group
+    [variants]="keysForSaveModeVariants"
+    [(value)]="keysForSaveMode"
+  ></app-radio-group>
+  <ng-container *ngIf="records.length">
+    <div>
+      <button (click)="onSave()">Save</button>
+    </div>
+  </ng-container>
+</div>

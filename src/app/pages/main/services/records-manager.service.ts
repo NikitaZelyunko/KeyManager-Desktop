@@ -8,19 +8,16 @@ export class RecordsManagerService {
   private records$ = new BehaviorSubject<RecordListItem[] | null>(null);
   private idCount = 0;
 
-  init() {
-    const currentRecords = this.records$.value;
-    if (!currentRecords) {
-      this.records$.next(this.getInitRecords());
+  reInit(records?: RecordListItem[]) {
+    if (records) {
+      this.records$.next(records);
+    } else {
+      this.records$.next([]);
     }
   }
 
-  private getInitRecords() {
-    return [];
-  }
-
   reset() {
-    this.records$.next(this.getInitRecords());
+    this.records$.next(null);
   }
 
   getRecords() {

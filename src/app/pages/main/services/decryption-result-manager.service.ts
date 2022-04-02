@@ -27,4 +27,8 @@ export class DecryptionResultManagerService {
   pushFiles(keyData: ArrayBuffer, encryptedData: ArrayBuffer) {
     this.files$.next({ keyData, encryptedData });
   }
+
+  reset() {
+    this.files$.next(null);
+  }
 }

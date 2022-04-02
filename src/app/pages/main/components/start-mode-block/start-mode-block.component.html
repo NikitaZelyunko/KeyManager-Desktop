@@ -1,6 +1,0 @@
-<form [formGroup]="form">
-  <ng-container *ngFor="let variant of variants">
-    <span>{{ variant.label }}</span>
-    <input type="radio" [value]="variant.value" formControlName="mode" />
-  </ng-container>
-</form>

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StartModeBlockComponent } from './start-mode-block.component';
+import { RadioGroupComponent } from './radio-group.component';
 
-describe('StartModeBlockComponent', () => {
-  let component: StartModeBlockComponent;
-  let fixture: ComponentFixture<StartModeBlockComponent>;
+describe('RadioGroupComponent', () => {
+  let component: RadioGroupComponent;
+  let fixture: ComponentFixture<RadioGroupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StartModeBlockComponent],
+      declarations: [RadioGroupComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StartModeBlockComponent);
+    fixture = TestBed.createComponent(RadioGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

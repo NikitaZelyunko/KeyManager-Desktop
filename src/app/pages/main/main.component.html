@@ -1,5 +1,6 @@
-<app-start-mode-block
+<app-radio-group
+  [variants]="startModeVariants"
   [value]="startMode"
   (valueChange)="startModeChange($event)"
-></app-start-mode-block>
+></app-radio-group>
 <router-outlet></router-outlet>

@@ -12,5 +12,6 @@
   "[json]": {
     "editor.formatOnSave": true
   },
-  "eslint.alwaysShowStatus": true
+  "eslint.alwaysShowStatus": true,
+  "cSpell.words": ["Decryption"]
 }

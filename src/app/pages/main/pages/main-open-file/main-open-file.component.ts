@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { finalize } from 'rxjs';
 import { FilesForEncrypt } from '../../modules/files-for-encrypt-form/types/files-for-encrypt';
 import { DecryptionResultManagerService } from '../../services/decryption-result-manager.service';
 
@@ -9,7 +10,11 @@ import { DecryptionResultManagerService } from '../../services/decryption-result
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainOpenFileComponent {
-  records$ = this.drm.getDecryptedResult();
+  records$ = this.drm.getDecryptedResult().pipe(
+    finalize(() => {
+      this.drm.reset();
+    })
+  );
 
   constructor(private drm: DecryptionResultManagerService) {}
 
