@@ -1,9 +1,12 @@
 import { Component, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { EMPTY, Observable, tap } from 'rxjs';
+import { EMPTY, tap } from 'rxjs';
+import { FileReaderService } from 'src/app/core/services/file-reader.service';
 import { FilesForEncrypt } from '../../types/files-for-encrypt';
 
 type ControlNames = 'private' | 'data';
+
+// TODO этот компонент с файлами для дешифрования(decrypt). Нужно переименовать.
 
 @Component({
   selector: 'app-files-for-encrypt-form',
@@ -17,7 +20,7 @@ export class FilesForEncryptFormComponent {
     private: this.fb.control(null, Validators.required),
     data: this.fb.control(null, Validators.required),
   });
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private fileReader: FileReaderService) {}
 
   // TODO сделать чтобы обработка прекращалась при новом вызове
   onFileChange(control: ControlNames, event: Event) {
@@ -30,33 +33,12 @@ export class FilesForEncryptFormComponent {
       const files = input.files;
       if (files?.length) {
         const file = files[0];
-        return this.createFileRead(file).pipe(
-          tap((fileResult) => this.form.controls[control].patchValue(fileResult))
-        );
+        return this.fileReader
+          .readAsArrayBuffer(file)
+          .pipe(tap((fileResult) => this.form.controls[control].patchValue(fileResult)));
       }
     }
     return EMPTY;
-  }
-
-  // TODO вынести в отдельное место
-  private createFileRead(file: File) {
-    return new Observable((subscriber) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        subscriber.next(reader.result);
-        subscriber.complete();
-      };
-      reader.onerror = () => {
-        subscriber.error();
-        subscriber.complete();
-      };
-      reader.readAsArrayBuffer(file);
-      return {
-        unsubscribe() {
-          reader.abort();
-        },
-      };
-    });
   }
 
   onSubmit() {

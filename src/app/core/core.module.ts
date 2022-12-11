@@ -6,12 +6,13 @@ import { FileCreatorService } from './services/file-creator.service';
 import { CryptoService } from './services/crypto.service';
 import { ElectronService } from './services/electron.service';
 import { ModalsModule } from '../modals/modals.module';
+import { FileReaderService } from './services/file-reader.service';
 
 @NgModule({
   declarations: [HeaderComponent],
   imports: [CommonModule, RouterModule, ModalsModule],
   exports: [HeaderComponent, ModalsModule],
-  providers: [FileCreatorService, CryptoService, ElectronService],
+  providers: [FileCreatorService, CryptoService, ElectronService, FileReaderService],
 })
 export class CoreModule {
   constructor() {

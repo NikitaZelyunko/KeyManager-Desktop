@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, from, map, Observable } from 'rxjs';
+import { ErrorNames } from 'src/app/utils/error-names';
 
 const ALGORITHM_NAME = 'RSA-OAEP';
 
 @Injectable()
 export class CryptoService {
-  generateKey() {
+  generateKeyPair() {
     return from(
       window.crypto.subtle.generateKey(
         {
@@ -37,8 +38,25 @@ export class CryptoService {
   }
 
   decrypt(key: CryptoKey, message: BufferSource) {
-    return from(window.crypto.subtle.decrypt({ name: ALGORITHM_NAME }, key, message)).pipe(
-      map((result: BufferSource) => this.decodeMessage(result))
+    return from(
+      window.crypto.subtle.decrypt({ name: ALGORITHM_NAME }, key, message) as Promise<BufferSource>
+    ).pipe(
+      // TODO обработать ошибки(если это возможно) несовпадения ключа и зашифрованных данных
+      catchError((error: DOMException) => {
+        console.error(error);
+        switch (error.name) {
+          case ErrorNames.OPERATION_ERROR:
+            {
+              // TODO уведомить пользователя
+              // TODO может быть нужно пробрасывать ошибки наружу, но в более удобоваримом виде
+            }
+            break;
+        }
+        return EMPTY;
+      }),
+      map((result) => {
+        return this.decodeMessage(result);
+      })
     );
   }
 
@@ -46,24 +64,38 @@ export class CryptoService {
     return from(window.crypto.subtle.exportKey('jwk', key));
   }
 
+  importKey(keyData: ArrayBuffer, type: keyof CryptoKeyPair) {
+    try {
+      const jsonKey: JsonWebKey = JSON.parse(this.decodeMessage(keyData));
+      return from(
+        window.crypto.subtle.importKey(
+          'jwk',
+          jsonKey,
+          {
+            name: ALGORITHM_NAME,
+            hash: 'SHA-512',
+          },
+          true,
+          type === 'privateKey' ? ['decrypt'] : ['encrypt']
+        )
+      ).pipe(
+        catchError((err) => {
+          // TODO обработать ошибки и пробросить в более удобоваримом виде наружу
+          console.error(err);
+          return EMPTY;
+        })
+      );
+    } catch (error) {
+      console.error(error);
+      return EMPTY;
+    }
+  }
+
   importPrivateKey(keyData: ArrayBuffer) {
-    const jsonKey: JsonWebKey = JSON.parse(this.decodeMessage(keyData));
-    return from(
-      window.crypto.subtle.importKey(
-        'jwk',
-        jsonKey,
-        {
-          name: ALGORITHM_NAME,
-          hash: 'SHA-512',
-        },
-        false,
-        ['decrypt']
-      )
-    ).pipe(
-      catchError((err) => {
-        console.error(err);
-        return EMPTY;
-      })
-    );
+    return this.importKey(keyData, 'privateKey');
+  }
+
+  importPublicKey(keyData: ArrayBuffer) {
+    return this.importKey(keyData, 'publicKey');
   }
 }

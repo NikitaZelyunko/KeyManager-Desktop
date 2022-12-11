@@ -1,13 +1,25 @@
-<app-files-for-encrypt-form (filesUpload)="onFilesUpload($event)"></app-files-for-encrypt-form>
-<div *ngIf="records$ | async as records">
-  <app-editable-records-list [records]="records"></app-editable-records-list>
-  <app-radio-group
-    [variants]="keysForSaveModeVariants"
-    [(value)]="keysForSaveMode"
-  ></app-radio-group>
-  <ng-container *ngIf="records.length">
-    <div>
+<app-files-for-encrypt-form
+  (filesUpload)="componentService.uploadFilesForDecrypt($event)"
+></app-files-for-encrypt-form>
+<ng-container *ngIf="records$ | async as recordsResult">
+  <ng-container *ngIf="!recordsResult.loading">
+    <app-editable-records-list [records]="recordsResult.value"></app-editable-records-list>
+    <app-radio-group
+      [variants]="keysForSaveModeVariants"
+      [value]="keysForSaveMode.value"
+      (valueChange)="keysForSaveMode.value = $event"
+    ></app-radio-group>
+    <div [hidden]="keysForSaveMode.value !== 'useCurrent'">
+      <span>Публичный ключ</span>
+      <app-file-input (valueChange)="onPublicKeyUpload($event)"></app-file-input>
+      <!-- TODO компонент выбора публичного ключа -->
+    </div>
+    <div *ngIf="saveEnabled$ | async">
       <button (click)="onSave()">Save</button>
     </div>
+    <app-files-modal
+      *ngIf="createdFiles$ | async as createdFiles"
+      [files]="createdFiles"
+    ></app-files-modal>
   </ng-container>
-</div>
+</ng-container>

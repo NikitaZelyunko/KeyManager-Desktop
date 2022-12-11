@@ -1,34 +1,57 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, forkJoin, map, of, switchMap } from 'rxjs';
+import { BehaviorSubject, filter, combineLatest, map, switchMap, of, startWith } from 'rxjs';
 import { CryptoService } from 'src/app/core/services/crypto.service';
+import { isPendingValue, PENDING_VALUE } from 'src/app/types/loading-value';
 import { RecordListItem } from '../../main/modules/records/types/record-list-item.type';
-
-type Files = Record<'keyData' | 'encryptedData', ArrayBuffer>;
+import { KeysManagerService } from './keys-manager.service';
 
 @Injectable()
 export class DecryptionResultManagerService {
-  private files$ = new BehaviorSubject<Files | null>(null);
-  constructor(private crypto: CryptoService) {}
+  private encryptedData$ = new BehaviorSubject<ArrayBuffer | null>(null);
+  constructor(private crypto: CryptoService, private keysManager: KeysManagerService) {}
 
-  private getFiles() {
-    return this.files$.pipe(filter(Boolean));
+  private getEncryptedData() {
+    return this.encryptedData$.pipe(filter(Boolean), startWith(PENDING_VALUE));
   }
 
+  /**
+   * Если разделить потоки файлов, чтобы они не эмитили парами, то
+   * zip будет работать некорректно, т.к. пары не всегда могут организовываться, например
+   * первая пара, потом замена одного из файлов не создаст пары, пока не будет заменен второй файл.
+   * Или например дважды загрузить файл приватного ключа, а потом загрузить зашифрованный файл.
+   * Есть следующие идеи решения такой проблемы:
+   * 1) Использовать combineLatest;
+   */
   getDecryptedResult() {
-    return this.getFiles().pipe(
-      switchMap((files) =>
-        forkJoin([this.crypto.importPrivateKey(files.keyData), of(files.encryptedData)])
-      ),
-      switchMap(([key, encryptedData]) => this.crypto.decrypt(key, encryptedData)),
-      map((result): RecordListItem[] => JSON.parse(result))
+    return combineLatest([
+      this.keysManager.getKeyFromFile('privateKey'),
+      this.getEncryptedData(),
+    ]).pipe(
+      switchMap(([key, encryptedData]) => {
+        if (isPendingValue(key) || isPendingValue(encryptedData)) {
+          return of(PENDING_VALUE);
+        }
+        // TODO добавить уведомлений при ошибке
+        return this.crypto.decrypt(key, encryptedData).pipe(
+          map((result) => {
+            try {
+              return JSON.parse(result) as RecordListItem[];
+            } catch (error) {
+              console.error(error);
+              return [];
+            }
+          }),
+          startWith(PENDING_VALUE)
+        );
+      })
     );
   }
 
-  pushFiles(keyData: ArrayBuffer, encryptedData: ArrayBuffer) {
-    this.files$.next({ keyData, encryptedData });
+  setEncryptedData(data: ArrayBuffer) {
+    this.encryptedData$.next(data);
   }
 
   reset() {
-    this.files$.next(null);
+    this.encryptedData$.next(null);
   }
 }

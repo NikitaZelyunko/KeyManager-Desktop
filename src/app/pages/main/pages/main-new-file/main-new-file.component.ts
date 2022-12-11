@@ -17,27 +17,27 @@ export class MainNewFileComponent implements OnInit {
   constructor(
     private recordsService: RecordsManagerService,
     private encryptionFileManagerService: EncryptionFileManagerService,
-    private sanitazionService: DomSanitizer
+    private sanitazerService: DomSanitizer
   ) {}
 
   // TODO написать декоратор для этого
   // TODO переделать на блокировку действия пока не завершится observable
   // TODO нужен декоратор pending на весь компонент
   onFileCreate() {
-    this.encryptionFileManagerService.createFiles().subscribe({
+    this.encryptionFileManagerService.encryptRecords().subscribe({
       next: ([encryptedFile, privateKey, publicKey]) => {
         const files: FileModalData[] = [
           {
             label: 'Private key',
-            href: this.sanitazionService.bypassSecurityTrustUrl(privateKey),
+            href: this.sanitazerService.bypassSecurityTrustUrl(privateKey),
           },
           {
             label: 'Public key',
-            href: this.sanitazionService.bypassSecurityTrustUrl(publicKey),
+            href: this.sanitazerService.bypassSecurityTrustUrl(publicKey),
           },
           {
             label: 'Encrypted file',
-            href: this.sanitazionService.bypassSecurityTrustUrl(encryptedFile),
+            href: this.sanitazerService.bypassSecurityTrustUrl(encryptedFile),
           },
         ];
         this.createdFiles$.next(files);

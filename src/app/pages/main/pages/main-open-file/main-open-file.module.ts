@@ -6,6 +6,7 @@ import { MainOpenFileComponent } from './main-open-file.component';
 import { RecordsReadonlyDisplayModule } from '../../modules/records-readonly-display/records-readonly-display.module';
 import { FilesForEncryptFormModule } from '../../modules/files-for-encrypt-form/files-for-encrypt-form.module';
 import { DecryptionResultManagerService } from '../../services/decryption-result-manager.service';
+import { KeysManagerService } from '../../services/keys-manager.service';
 
 @NgModule({
   declarations: [MainOpenFileComponent],
@@ -15,6 +16,6 @@ import { DecryptionResultManagerService } from '../../services/decryption-result
     RecordsReadonlyDisplayModule,
     FilesForEncryptFormModule,
   ],
-  providers: [DecryptionResultManagerService],
+  providers: [DecryptionResultManagerService, KeysManagerService],
 })
 export class MainOpenFileModule {}

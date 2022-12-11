@@ -1,4 +1,6 @@
 <app-files-for-encrypt-form (filesUpload)="onFilesUpload($event)"></app-files-for-encrypt-form>
-<div *ngIf="records$ | async as records">
-  <app-readonly-records-list [records]="records"></app-readonly-records-list>
+<div *ngIf="records$ | async as recordsResult">
+  <ng-container *ngIf="!recordsResult.loading">
+    <app-readonly-records-list [records]="recordsResult.value"></app-readonly-records-list>
+  </ng-container>
 </div>

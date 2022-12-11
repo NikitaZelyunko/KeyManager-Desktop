@@ -8,6 +8,9 @@ import { RecordsEditableDisplayModule } from '../../modules/records-editable-dis
 import { DecryptionResultManagerService } from '../../services/decryption-result-manager.service';
 import { RecordsManagerService } from '../../services/records-manager.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { EncryptionFileManagerService } from '../../services/encryption-file-manager.service';
+import { KeysManagerService } from '../../services/keys-manager.service';
+import { FileInputModule } from 'src/app/ui-kit/file-input/file-input.module';
 
 @NgModule({
   declarations: [MainEditFileComponent],
@@ -17,7 +20,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FilesForEncryptFormModule,
     RecordsEditableDisplayModule,
     SharedModule,
+    FileInputModule,
   ],
-  providers: [DecryptionResultManagerService, RecordsManagerService],
+  providers: [
+    DecryptionResultManagerService,
+    KeysManagerService,
+    RecordsManagerService,
+    EncryptionFileManagerService,
+  ],
 })
 export class MainEditFileModule {}

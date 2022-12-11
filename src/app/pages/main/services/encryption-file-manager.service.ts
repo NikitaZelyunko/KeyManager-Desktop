@@ -7,9 +7,9 @@ import { RecordsManagerService } from 'src/app/pages/main/services/records-manag
 export class EncryptionFileManagerService {
   constructor(private rm: RecordsManagerService, private crypto: CryptoService) {}
 
-  createFiles() {
-    return forkJoin([this.rm.getLatestRecords(), this.crypto.generateKey()]).pipe(
-      switchMap(([records, keys]) => {
+  reEncryptRecords(keys: CryptoKeyPair) {
+    return this.rm.getLatestRecords().pipe(
+      switchMap((records) => {
         if (keys.privateKey && keys.publicKey) {
           return forkJoin([this.crypto.encrypt(keys.publicKey, JSON.stringify(records)), of(keys)]);
         }
@@ -43,5 +43,9 @@ export class EncryptionFileManagerService {
         ]);
       })
     );
+  }
+
+  encryptRecords() {
+    return this.crypto.generateKeyPair().pipe(switchMap((keys) => this.reEncryptRecords(keys)));
   }
 }

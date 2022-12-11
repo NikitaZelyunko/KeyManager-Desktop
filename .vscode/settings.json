@@ -13,5 +13,6 @@
     "editor.formatOnSave": true
   },
   "eslint.alwaysShowStatus": true,
-  "cSpell.words": ["Decryption"]
+  "cSpell.words": ["Decryption"],
+  "cSpell.language": "en,ru"
 }
