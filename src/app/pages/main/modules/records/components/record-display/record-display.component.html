@@ -10,10 +10,12 @@
   <div class="field">
     <span>Login: </span>
     <span>{{ login }}</span>
+    <button class="copy-button" (click)="onLoginCopy()">Copy</button>
   </div>
   <div class="field">
     <span>Password: </span>
     <span>{{ password }}</span>
+    <button class="copy-button" (click)="onPasswordCopy()">Copy</button>
   </div>
 </div>
 <div class="manage-buttons" *ngIf="editable">
