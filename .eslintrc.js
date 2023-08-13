@@ -12,7 +12,7 @@ module.exports = {
         project: ['tsconfig.json'],
         createDefaultProgram: true,
       },
-      plugins: ['unused-imports'],
+      plugins: ['unused-imports', '@typescript-eslint'],
       extends: [
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@angular-eslint/recommended',
