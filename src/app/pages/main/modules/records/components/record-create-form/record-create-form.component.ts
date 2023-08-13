@@ -9,6 +9,7 @@ import {
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NewRecord } from '../../types/new-record-type';
 import { RecordCreateFormActions } from './record-create-form-actions.service';
+import { simplePasswordGenerator } from 'src/app/features/password-generator/simple-password-generator/simple-password-generator';
 
 @Component({
   selector: 'app-record-create-form',
@@ -38,6 +39,11 @@ export class RecordCreateFormComponent {
 
   private updateFormValue(value: NewRecord) {
     this.form.setValue(value);
+  }
+
+  generatePassword() {
+    const password = simplePasswordGenerator();
+    this.form.patchValue({ password });
   }
 
   submit() {
