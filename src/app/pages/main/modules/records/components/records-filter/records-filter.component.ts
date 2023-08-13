@@ -9,15 +9,24 @@ import { FilterResultType } from '../../types/filter-result-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecordsFilterComponent {
-  @Output() search = new EventEmitter<FilterResultType>();
+  @Output() search = new EventEmitter<FilterResultType | null>();
   form = this.fb.group({
     searchString: this.fb.control(''),
   });
+
   constructor(private fb: FormBuilder) {}
 
   submit() {
-    if (this.form.valid) {
-      this.search.emit(this.form.value as FilterResultType);
+    if (!this.form.valid) {
+      return;
+    }
+    const formValue = this.form.value;
+
+    if (formValue.searchString === null) {
+      this.search.emit(null);
+      return;
+    } else {
+      this.search.emit(formValue as FilterResultType);
     }
   }
 }

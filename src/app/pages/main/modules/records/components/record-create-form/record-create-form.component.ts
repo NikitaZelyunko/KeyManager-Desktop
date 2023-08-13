@@ -6,7 +6,7 @@ import {
   Input,
   Optional,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NewRecord } from '../../types/new-record-type';
 import { RecordCreateFormActions } from './record-create-form-actions.service';
 
@@ -27,14 +27,14 @@ export class RecordCreateFormComponent {
   // Лучше не использовать output для целей отслеживания изменений
   // Лучше сделать input с subject
 
-  form: FormGroup = this.fb.group({
+  form: UntypedFormGroup = this.fb.group({
     title: this.fb.control('', Validators.required),
     description: this.fb.control(''),
     login: this.fb.control('', Validators.required),
     password: this.fb.control('', Validators.required),
   } as Record<keyof NewRecord, unknown>);
 
-  constructor(private fb: FormBuilder, @Optional() actions: RecordCreateFormActions) {}
+  constructor(private fb: UntypedFormBuilder, @Optional() actions: RecordCreateFormActions) {}
 
   private updateFormValue(value: NewRecord) {
     this.form.setValue(value);

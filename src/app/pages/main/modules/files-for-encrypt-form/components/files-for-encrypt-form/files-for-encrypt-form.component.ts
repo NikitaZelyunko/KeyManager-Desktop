@@ -17,8 +17,8 @@ type ControlNames = 'private' | 'data';
 export class FilesForEncryptFormComponent {
   @Output() filesUpload = new EventEmitter<FilesForEncrypt>();
   form = this.fb.group({
-    private: this.fb.control(null, Validators.required),
-    data: this.fb.control(null, Validators.required),
+    private: this.fb.control(null as ArrayBuffer | null, Validators.required),
+    data: this.fb.control(null as ArrayBuffer | null, Validators.required),
   });
   constructor(private fb: FormBuilder, private fileReader: FileReaderService) {}
 
@@ -42,13 +42,18 @@ export class FilesForEncryptFormComponent {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      const formValue: FilesForEncrypt = this.form.value;
-      if (formValue.private && formValue.data) {
-        this.filesUpload.emit(formValue);
-        return;
-      }
+    if (!this.form.valid) {
+      this.form.markAllAsTouched();
+      return;
     }
-    this.form.markAllAsTouched();
+
+    const formValue = this.form.value;
+
+    if (!formValue.private || !formValue.data) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.filesUpload.emit(formValue as FilesForEncrypt);
   }
 }

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { RecordCreateFormComponent } from './record-create-form.component';
 
@@ -10,7 +10,7 @@ describe('RecordCreateFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RecordCreateFormComponent],
-      providers: [FormBuilder],
+      providers: [UntypedFormBuilder],
       imports: [ReactiveFormsModule],
     }).compileComponents();
   });
