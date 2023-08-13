@@ -1,19 +1,25 @@
 :host {
   display: block;
   width: 100%;
-  .form {
-    width: 100%;
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-      :last-of-type {
-        margin-bottom: 0;
-      }
-      input {
-        flex: 1;
-      }
-    }
+}
+
+.form {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 0.5rem 0.5rem 0;
+  :last-of-type {
+    margin-bottom: 0;
+  }
+  input {
+    flex: 1;
   }
 }
