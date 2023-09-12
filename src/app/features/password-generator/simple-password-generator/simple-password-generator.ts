@@ -1,5 +1,6 @@
 import { simplePasswordAlphabet } from './simple-password-alphabet';
 
+// TODO перейти на crypto.getRandomNumbers
 function generateRandomCharacterIndex(alphabet: string[]) {
   return Math.floor(Math.random() * alphabet.length);
 }

@@ -11,6 +11,11 @@ export class CryptoService {
       window.crypto.subtle.generateKey(
         {
           name: ALGORITHM_NAME,
+          /**
+           * Длина ключа в битах.
+           * Количество байт входного значения не должно превышать modulusLength / 8 - 2 * (длина хэша в байтах) - 2 https://datatracker.ietf.org/doc/html/rfc3447#section-7.1.
+           * Количество байт выходного значения будет равно modulusLength / 8.
+           */
           modulusLength: 4096,
           publicExponent: new Uint8Array([1, 0, 1]),
           hash: 'SHA-512',
@@ -32,6 +37,8 @@ export class CryptoService {
   }
 
   encrypt(key: CryptoKey, message: string): Observable<ArrayBuffer> {
+    // TODO нужно разбивать сообщение на блоки по количеству
+    // В данный момент без выбора алгоритма шифрования, можно захардкодить размер блока
     return from(
       window.crypto.subtle.encrypt({ name: ALGORITHM_NAME }, key, this.encodeMessage(message))
     );
