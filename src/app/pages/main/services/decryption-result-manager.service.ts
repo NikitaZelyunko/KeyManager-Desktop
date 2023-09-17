@@ -4,6 +4,7 @@ import { CryptoService } from 'src/app/core/services/crypto.service';
 import { isPendingValue, PENDING_VALUE } from 'src/app/types/loading-value';
 import { RecordListItem } from '../../main/modules/records/types/record-list-item.type';
 import { KeysManagerService } from './keys-manager.service';
+import { DataForEncrypt } from '../types/data-for-encrypt';
 
 @Injectable()
 export class DecryptionResultManagerService {
@@ -35,7 +36,8 @@ export class DecryptionResultManagerService {
         return this.crypto.decrypt(key, encryptedData).pipe(
           map((result) => {
             try {
-              return JSON.parse(result) as RecordListItem[];
+              const decryptedData = JSON.parse(result) as DataForEncrypt<RecordListItem[]>;
+              return decryptedData.value;
             } catch (error) {
               console.error(error);
               return [];
