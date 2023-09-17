@@ -25,9 +25,11 @@ export class EncryptionFileManagerService {
         }
         return EMPTY;
       }),
-      switchMap(([encryptedMessage, keys]) => {
+      switchMap(([encryptedMessageSegments, keys]) => {
         return forkJoin([
-          of(window.URL.createObjectURL(new Blob([encryptedMessage], { type: 'text/plain' }))),
+          of(
+            window.URL.createObjectURL(new Blob(encryptedMessageSegments, { type: 'text/plain' }))
+          ),
           keys.privateKey
             ? this.crypto
                 .exportKey(keys.privateKey)
