@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { EMPTY, forkJoin, map, of, switchMap } from 'rxjs';
 import { CryptoService } from 'src/app/core/services/crypto.service';
 import { RecordsManagerService } from 'src/app/pages/main/services/records-manager.service';
+import { DataForEncrypt } from '../types/data-for-encrypt';
+import { RecordListItem } from '../modules/records/types/record-list-item.type';
+import { createSimpleSaltGenerator } from 'src/app/features/salt-generator/simple-salt-generator';
 
 @Injectable()
 export class EncryptionFileManagerService {
@@ -11,13 +14,22 @@ export class EncryptionFileManagerService {
     return this.rm.getLatestRecords().pipe(
       switchMap((records) => {
         if (keys.privateKey && keys.publicKey) {
-          return forkJoin([this.crypto.encrypt(keys.publicKey, JSON.stringify(records)), of(keys)]);
+          const dataForEncrypt: DataForEncrypt<RecordListItem[]> = {
+            value: records,
+            salt: createSimpleSaltGenerator()(),
+          };
+          return forkJoin([
+            this.crypto.encrypt(keys.publicKey, JSON.stringify(dataForEncrypt)),
+            of(keys),
+          ]);
         }
         return EMPTY;
       }),
-      switchMap(([encryptedMessage, keys]) => {
+      switchMap(([encryptedMessageSegments, keys]) => {
         return forkJoin([
-          of(window.URL.createObjectURL(new Blob([encryptedMessage], { type: 'text/plain' }))),
+          of(
+            window.URL.createObjectURL(new Blob(encryptedMessageSegments, { type: 'text/plain' }))
+          ),
           keys.privateKey
             ? this.crypto
                 .exportKey(keys.privateKey)
