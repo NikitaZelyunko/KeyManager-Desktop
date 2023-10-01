@@ -25,3 +25,10 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Running on external devices(from browser)
+
+If you want to use this app on external devices, you need to open the app in a secure context.
+Chrome does not allow the cryptographic API in unsecured contexts, which is required for this application to work. In other words, the application must open using the https protocol.
+Create certificates in any way you know and provide the https protocol to the assembled application.
+For example, a script for local testing might look like this: `"ng:serve-ssl": "ng serve -c web --host=192.168.31.75 --ssl --ssl-cert ../../Certificates/localhost.crt --ssl-key ../../Certificates/localhost.key",`.
