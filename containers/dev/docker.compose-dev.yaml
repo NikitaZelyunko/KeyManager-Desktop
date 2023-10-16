@@ -1,0 +1,15 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./containers/dev/Dockerfile
+      target: dev
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /home/key-manager/
+          ignore:
+            - node_modules/
+    ports:
+      - 4200:4200
