@@ -6,3 +6,4 @@ release
 .vscode
 .git
 containers
+!containers/pwa-share

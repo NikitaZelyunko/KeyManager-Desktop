@@ -2,7 +2,7 @@
 $TTL 2d    ; default TTL for zone
 $ORIGIN key-manager-pwa-share.com. ; base domain-name
 ; Start of Authority RR defining the key characteristics of the zone (domain)
-@         IN      SOA   ns.key-manager-pwa-share.com. root.key-manager-pwa-share.com. (
+@         IN      SOA   key-manager-pwa-share.com. root.key-manager-pwa-share.com. (
                                 2003080800 ; serial number
                                 12h        ; refresh
                                 15m        ; update retry
@@ -11,7 +11,7 @@ $ORIGIN key-manager-pwa-share.com. ; base domain-name
                                 )
 ; name server RR for the domain
 @          IN      NS      ns.key-manager-pwa-share.com.
-@          IN      A       172.17.0.2
+@          IN      A       192.168.31.75
 @          IN      AAAA    ::1
-ns         IN      A       172.17.0.2
-www        IN      A       172.17.0.2
+ns         IN      A       192.168.31.75
+www        IN      A       192.168.31.75
