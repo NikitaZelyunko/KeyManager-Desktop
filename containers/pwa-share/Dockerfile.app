@@ -23,7 +23,9 @@ RUN openssl req -x509 -out ${DOMAIN_NAME}.crt -keyout ${DOMAIN_NAME}.key -newkey
 
 # CMD npm run ng:serve -- --host 0.0.0.0 --port 443
 
-CMD npm run ng:serve -- --host 0.0.0.0 --port 443 --disable-host-check --ssl --ssl-cert $DOMAIN_NAME.crt --ssl-key $DOMAIN_NAME.key
+# CMD npm run ng:serve -- --host 0.0.0.0 --port 443 --disable-host-check --ssl --ssl-cert $DOMAIN_NAME.crt --ssl-key $DOMAIN_NAME.key
+
+CMD npm run ng:serve:prod -- --host 0.0.0.0 --port 443 --disable-host-check --ssl --ssl-cert $DOMAIN_NAME.crt --ssl-key $DOMAIN_NAME.key
 
 # CMD npm run ng:serve -- --host 0.0.0.0 --port 443 --disable-host-check --ssl
 
