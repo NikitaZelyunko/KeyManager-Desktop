@@ -32,3 +32,10 @@ If you want to use this app on external devices, you need to open the app in a s
 Chrome does not allow the cryptographic API in unsecured contexts, which is required for this application to work. In other words, the application must open using the https protocol.
 Create certificates in any way you know and provide the https protocol to the assembled application.
 For example, a script for local testing might look like this: `"ng:serve-ssl": "ng serve -c web --host=192.168.31.75 --ssl --ssl-cert ../../Certificates/localhost.crt --ssl-key ../../Certificates/localhost.key",`.
+
+## Use docker for local network development
+
+In order to deploy an application accessible by domain name, there is a `docker.compose-pwa-share.yaml` file in the containers/pwa-share folder. It contains the configuration of the application server and DNS server. Also in this folder there is an example of configuration files for the DNS server. The `key-manager-pwa-share.com.zone` file will need to be edited and the IP address of the host in which the containers will be launched must be entered. After this, you will need to enter the following commands in the console (`run from the root folder of the application`):
+`docker compose --project-directory . --file containers/pwa-share/docker.compose-pwa-share.yaml build`
+and then like this:
+`docker compose --project-directory . --file containers/pwa-share/docker.compose-pwa-share.yaml watch`
