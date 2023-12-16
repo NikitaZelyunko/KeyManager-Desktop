@@ -39,3 +39,4 @@ In order to deploy an application accessible by domain name, there is a `docker.
 `docker compose --project-directory . --file containers/pwa-share/docker.compose-pwa-share.yaml build`
 and then like this:
 `docker compose --project-directory . --file containers/pwa-share/docker.compose-pwa-share.yaml watch`
+Then, in order for the site to open in a secure context (https), you need to get the generated certificate from the container; it is located in the application folder. This certificate must be trusted on each device on which you want to use the application.
