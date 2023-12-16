@@ -1,0 +1,18 @@
+; base zone file for key-manager-pwa-share.com
+$TTL 2d    ; default TTL for zone
+$ORIGIN key-manager-pwa-share.com. ; base domain-name
+; Start of Authority RR defining the key characteristics of the zone (domain)
+@         IN      SOA   key-manager-pwa-share.com. root.key-manager-pwa-share.com. (
+                                2003080800 ; serial number
+                                12h        ; refresh
+                                15m        ; update retry
+                                3w         ; expiry
+                                2h         ; minimum
+                                )
+; name server RR for the domain
+; insert your host ip instead 192.168.31.1
+@          IN      NS      ns.key-manager-pwa-share.com.
+@          IN      A       192.168.31.1
+@          IN      AAAA    ::1
+ns         IN      A       192.168.31.1
+www        IN      A       192.168.31.1

@@ -1,0 +1,14 @@
+FROM --platform=${BUILDPLATFORM} alpine:latest
+
+RUN ["apk", "update"]
+
+RUN ["apk", "add", "bind"]
+
+EXPOSE 53/udp
+EXPOSE 53/tcp
+
+COPY ./containers/pwa-share/named.conf /etc/bind/named.conf
+
+COPY ./containers/pwa-share/key-manager-pwa-share.com.zone /var/bind/pri/key-manager-pwa-share.com.zone
+
+CMD ["named", "-c", "/etc/bind/named.conf", "-g", "-u", "named"]

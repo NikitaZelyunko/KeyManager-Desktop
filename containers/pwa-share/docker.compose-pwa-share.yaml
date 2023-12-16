@@ -1,0 +1,41 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./containers/pwa-share/Dockerfile.app
+      args:
+        - DOMAIN_NAME=key-manager-pwa-share.com
+      target: dev
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /home/key-manager/
+          ignore:
+            - node_modules/
+    networks:
+      application:
+        ipv4_address: 10.5.0.3
+    ports:
+      - 4200:4200
+      - 443:443
+  dns:
+    build:
+      context: .
+      dockerfile: ./containers/pwa-share/Dockerfile.dns
+      args:
+        - DOMAIN_NAME=key-manager-pwa-share.com
+    networks:
+      application:
+        ipv4_address: 10.5.0.2
+    tty: true
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+networks:
+  application:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

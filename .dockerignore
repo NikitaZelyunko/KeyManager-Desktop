@@ -1,0 +1,9 @@
+node_modules
+dist
+release
+.angular
+.husky
+.vscode
+.git
+containers
+!containers/pwa-share
